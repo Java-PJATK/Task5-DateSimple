@@ -7,6 +7,9 @@ public class DateSimple {
                 "From " + fromy + "/" + fromm + "/" + fromd + " to " +
                 toy + "/" + tom + "/" + tod);
 
+        int period = 0;
+
+        
     }
 
 }
