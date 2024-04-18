@@ -1,11 +1,13 @@
+// https://www.geeksforgeeks.org/bitwise-operators-in-java/
+
 public class DateSimple {
     public static void main(String[] args) {
-        int fromy = 2000, fromm = 1, fromd = 1;
+        int fromy = 2127, fromm = 1, fromd = 1;
         int toy = 2127, tom = 12, tod = 31;
 
         System.out.println("**** Original\n" +
                 "From " + fromy + "/" + fromm + "/" + fromd + " to " +
-                toy + "/" + tom + "/" + tod);
+                toy + "/" + tom + "/" + tod + "\n");
 
         int period = 0;
         // Pack 6 numbers into 'period'
