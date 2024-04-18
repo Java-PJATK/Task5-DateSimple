@@ -9,7 +9,7 @@ public class DateSimple {
 
         int period = 0;
 
-        
+
     }
 
 }
