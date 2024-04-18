@@ -2,8 +2,8 @@
 
 public class DateSimple {
     public static void main(String[] args) {
-        int fromy = 2000, fromm = 1, fromd = 1;
-        int toy = 2127, tom = 12, tod = 31;
+        int fromy = 2024, fromm = 4, fromd = 18;
+        int toy = 2024, tom = 4, tod = 30;
 
         System.out.println("**** Original\n" +
                 "From " + fromy + "/" + fromm + "/" + fromd + " to " +
