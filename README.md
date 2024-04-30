@@ -2,29 +2,58 @@
 
 https://github.com/Java-PJATK/Task5-DateSimple/blob/main/ppj05E.pdf
 
-Explanation:
+April 18, 2024
 
-We start by defining the original dates using six integers: fromy, fromm, fromd, toy, tom, tod.
+# Task 5
 
-To pack the dates into a single integer period, we use bitwise operations:
+A date may be specified by three numbers denoting year, month and day of month.
+If we don't need dates from a deep past, we can specify years relative to the year
+2000 (e.g., year 2032 as 32). Assuming that we will not consider the future past the
+year 2127, we can use numbers from the interval [0, 127] for year; such numbers can
+be written on 7 bits. Month number can occupy 4 bits, as it belongs to the interval
+[0, 15], and for the day we can spend 5 bits (which is enough to store any number
+from the interval [0, 31]). Therefore, full date can be packed in 16 bits and we can
+store two such dates in one 32-bit int (e.g., beginning and end of a period).
+Write a program which defines two dates (from and to), each as three integers (year,
+month, day). Pack them into one integer. Then unpack the integer and recover these
+six numbers.
 
-For the "from" date, we shift the year (minus 2000) by 25 bits, the month by 21 bits, and the day by 16 bits, and then OR them with period.
+For example, the following program:
 
-For the "to" date, we shift the year (minus 2000) by 9 bits, the month by 5 bits, and directly OR the day with period.
+```java
+public class DatesSimple {
+    public static void main (String[] args) {
+        int   fromy = 2000, fromm   = 2, fromd  = 3;
+        int     toy = 2127,     tom = 11, tod   = 29;
 
-After packing, we reset the original date variables to 0.
+        System.out.println("**** Original\n" +
+                                "From " + fromy + "/" +
+                                fromm + "/" + fromd + " to " +
+                                toy + "/" + tom + "/" + tod);
 
-To unpack the dates from period, we again use bitwise operations:
+        int period = 0;
+            // ... (pack 6 numbers into 'period')
+        fromy = fromm = fromd = toy = tom = tod = 0;
+            // ... (unpack 6 numbers from 'period')
+        System.out.println("**** Reconstructed\n" +
+                                "From " + fromy + "/" +
+                                fromm + "/" + fromd + " to " +
+                                toy + "/" + tom + "/" + tod);
+    }
+}
+```
+should print
 
-We extract the day of the "to" date by ANDing period with 0x1F (5 bits).
+```
+**** Original
+From 2000/2/3 to 2127/11/29
+**** Reconstructed
+From 2000/2/3 to 2127/11/29
+```
 
-We extract the month of the "to" date by right-shifting period by 5 bits and then ANDing with 0xF (4 bits).
+Deadline: Apr 30 (inclusive)
 
-We extract the year of the "to" date by right-shifting period by 9 bits, ANDing with 0x7F (7 bits), and then adding 2000.
-
-Similarly, we extract the day, month, and year of the "from" date by right-shifting period by appropriate amounts and ANDing with the respective bit masks.
-
-Finally, we print the reconstructed dates to verify that they match the original date.
+---
 
 ```java
 // https://www.geeksforgeeks.org/bitwise-operators-in-java/
@@ -83,3 +112,27 @@ public class DateSimple {
     }
 }
 ```
+
+Explanation:
+
+We start by defining the original dates using six integers: fromy, fromm, fromd, toy, tom, tod.
+
+To pack the dates into a single integer period, we use bitwise operations:
+
+For the "from" date, we shift the year (minus 2000) by 25 bits, the month by 21 bits, and the day by 16 bits, and then OR them with period.
+
+For the "to" date, we shift the year (minus 2000) by 9 bits, the month by 5 bits, and directly OR the day with period.
+
+After packing, we reset the original date variables to 0.
+
+To unpack the dates from period, we again use bitwise operations:
+
+We extract the day of the "to" date by ANDing period with 0x1F (5 bits).
+
+We extract the month of the "to" date by right-shifting period by 5 bits and then ANDing with 0xF (4 bits).
+
+We extract the year of the "to" date by right-shifting period by 9 bits, ANDing with 0x7F (7 bits), and then adding 2000.
+
+Similarly, we extract the day, month, and year of the "from" date by right-shifting period by appropriate amounts and ANDing with the respective bit masks.
+
+Finally, we print the reconstructed dates to verify that they match the original date.
